@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BJ17070 {
+public class BJ17070_찬희 {
 	private static int N;
 
 	public static void main(String[] args) throws IOException {
