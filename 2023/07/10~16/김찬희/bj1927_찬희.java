@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class Main {
+class bj1927_찬희 {
     public static void main(String[] args) throws IOException {        
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
