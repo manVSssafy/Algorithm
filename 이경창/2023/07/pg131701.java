@@ -1,10 +1,10 @@
-package PACKAGE_NAME;
+
 
 
 import java.util.Set;
 import java.util.HashSet;
 
-class Solution {
+public class pg131701 {
 
     private int sum(int index, int[] elements, int len){
 
