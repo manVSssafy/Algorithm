@@ -10,7 +10,7 @@ public class Solution3 {
         int[][] arr = {{1, 2}};
         int[][] arr2 = {{1, 2}};
 
-        
+
 
 
         reader.close();
