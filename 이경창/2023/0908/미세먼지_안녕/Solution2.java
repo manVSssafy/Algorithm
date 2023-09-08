@@ -10,8 +10,15 @@ public class Solution2 {
     private static int upX, upY;
     private static int downX, downY;
 
-    private static int[] dx = {0, -1, 0, 1};
-    private static int[] dy = {-1, 0, 1, 0};
+    private static int[] dx = {0, 1, 0, -1};
+    private static int[] dy = {1, 0, -1, 0};
+
+
+    private static int[] dx2 = {1, 0, -1, 0};
+    private static int[] dy2 = {0, 1, 0, -1};
+
+
+
 
 
     private static boolean isItAirCleaner(int row, int col){
@@ -41,39 +48,71 @@ public class Solution2 {
     }
 
     private static void airCleaner(int[][] clearRoomArr){
-        for(int i = 0; i < R; i++) System.out.println(Arrays.toString(clearRoomArr[i]));
+
+        System.out.println("upX "+ upX + " " + upY);
+        System.out.println("downX " + downX + " " + downY);
+        for(int i = 0 ; i < clearRoomArr.length; i++){
+            System.out.println(Arrays.toString(clearRoomArr[i]));
+        }
+
         System.out.println();
+
+        // 반시계 방향
+        // 시작점 : upX, upY
         int startX = upX;
         int startY = upY;
-        int index = 0;
-        // 반시계 방향
+        int d = 0;
+
         while(true){
-            if(isWithInRange(startY + dy[index], startX + dx[index])){
-                clearRoomArr[startY][startX] = clearRoomArr[startY + dy[index]][startX + dx[index]];
-                startX += dx[index];
-                startY += dy[index];
-            }else{
-                index += 1;
+            int nx = startX + dx[d];
+            int ny = startY + dy[d];
+
+            if(!isWithInRange(ny, nx)){
+                d = (d + 1) % 4;
+                nx = startX + dx[d];
+                ny = startY + dy[d];
             }
-            if(isItAirCleaner(startY, startX)) break;
-            System.out.println("테스트");
+//            System.out.println("nx, ny : " + (nx) + " " + ny + " startX " + startX + " startY :" +startY );
+            if(nx == upX && ny == upY){
+                break;
+            }else{
+                clearRoomArr[startY][startX] = clearRoomArr[ny][nx];
+                startX = nx;
+                startY = ny;
+            }
         }
 
         // 시계 방향
         startX = downX;
         startY = downY;
-        index = 2;
+        d = 0;
+
         while(true){
-            if(isWithInRange(startY + dy[index], startX + dx[index])){
-                clearRoomArr[startY][startX] = clearRoomArr[startY + dy[index]][startX + dx[index]];
-                startX += dx[index];
-                startY += dy[index];
-            }else{
-                index -= 1;
-                if(index < 0) index = 3;
+            int nx = startX + dx2[d];
+            int ny = startY + dy2[d];
+
+            if(!isWithInRange(ny, nx)){
+                d = (d + 1) % 4;
+                nx = startX + dx2[d];
+                ny = startY + dy2[d];
             }
-            if(isItAirCleaner(startY, startX)) break;
+
+
+            if(nx == downX && ny == downY){
+                break;
+            }else{
+                clearRoomArr[startY][startX] = clearRoomArr[ny][nx];
+                startX = nx;
+                startY = ny;
+            }
         }
+
+
+        for(int i = 0 ; i < clearRoomArr.length; i++){
+            System.out.println(Arrays.toString(clearRoomArr[i]));
+        }
+
+        System.out.println();
     }
     private static void clearRoom(){
         int[][] clearRoomArr = new int[R][C];
@@ -89,7 +128,6 @@ public class Solution2 {
 
         // (2) 공기청정기
         airCleaner(clearRoomArr);
-        for(int i = 0; i < R; i++) System.out.println(Arrays.toString(clearRoomArr[i]));
     }
     public static void main(String[] args) throws IOException{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

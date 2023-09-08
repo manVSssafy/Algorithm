@@ -32,37 +32,22 @@ public class Solution {
 
             Arrays.sort(input);
 
-            int left = N / 2;
-            int right = N / 2;
-            int k = 0;
+            int left = N - 1;
+            int right = 0;
 
-            if(N % 2 != 0){
-                arr[N / 2] = input[N - 1];
-                left -= 1;
-                right += 1;
-                k += 1;
-            }else{
-                left -= 1;
-            }
-
-//            System.out.println("arr size : " + arr.length);
-
-            for(int i = 0; i < (N / 2); i++){
-
-//                System.out.println("left : " + (left - i) + " right : " + (right + i));
-//                System.out.println((N - 1 - k) + " " + (N - 1 - (k + 1)));
-//                System.out.println(Arrays.toString(arr));
-                arr[left - i] = input[N - 1 - k];
-                arr[right + i] = input[N - 1 - (k + 1)];
-                k += 2;
+            for(int i = 0 ; i < N; i++){
+                if(i % 2 == 0){
+                    arr[left--] = input[i];
+                }else{
+                    arr[right++] = input[i];
+                }
             }
 
             int result = 0;
             for(int i = 1; i < N; i++){
-                int curResult = Math.abs(arr[i] - arr[i -1]);
-//                System.out.println("curResult : " + curResult + " result : " + result);
-                if(result < curResult) result = curResult;
+                result = Math.max(result, Math.abs(arr[i] - arr[i-1]));
             }
+            result = Math.max(result, Math.abs(arr[0] - arr[N - 1]));
             builder.append(result).append("\n");
         }
 
