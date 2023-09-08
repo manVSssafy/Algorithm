@@ -45,6 +45,7 @@ public class Solution4 {
                 if(c[j] == '0'){
 //                    System.out.println("j 위치 : " + j);
                     result = (int)Math.pow(2, c.length - j - 1);
+                    System.out.println("반갑습니다. 하잉하이ㅣ");
                     break;
                 }
             }
