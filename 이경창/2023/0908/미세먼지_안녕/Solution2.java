@@ -11,13 +11,11 @@ public class Solution2 {
     private static int downX, downY;
 
     private static int[] dx = {0, 1, 0, -1};
-    private static int[] dy = {1, 0, -1, 0};
+    private static int[] dy = {-1, 0, 1, 0};
 
 
-    private static int[] dx2 = {1, 0, -1, 0};
-    private static int[] dy2 = {0, 1, 0, -1};
-
-
+    private static int[] dx2 = {0, 1, 0, -1};
+    private static int[] dy2 = {1, 0, -1, 0};
 
 
 
@@ -30,6 +28,17 @@ public class Solution2 {
         if(0 <= row && 0 <= col && row < R && col < C) return true;
         return false;
     }
+
+    private static boolean isWithInRange2(int row, int col){
+        if(0 <= row && 0 <= col && row <= upY && col < C) return true;
+        return false;
+    }
+    private static boolean isWithInRange3(int row, int col){
+        if(downY <= row && 0 <= col && row < R && col < C) return true;
+        return false;
+    }
+
+
     // 미세먼지 일 때 계산식
     private static void calculate(int row, int col, int[][] clearRoomArr) {
         int spread = 0;
@@ -49,13 +58,13 @@ public class Solution2 {
 
     private static void airCleaner(int[][] clearRoomArr){
 
-        System.out.println("upX "+ upX + " " + upY);
-        System.out.println("downX " + downX + " " + downY);
-        for(int i = 0 ; i < clearRoomArr.length; i++){
-            System.out.println(Arrays.toString(clearRoomArr[i]));
-        }
-
-        System.out.println();
+//        System.out.println("upX "+ upX + " " + upY);
+//        System.out.println("downX " + downX + " " + downY);
+//        for(int i = 0 ; i < clearRoomArr.length; i++){
+//            System.out.println(Arrays.toString(clearRoomArr[i]));
+//        }
+//
+//        System.out.println();
 
         // 반시계 방향
         // 시작점 : upX, upY
@@ -67,13 +76,14 @@ public class Solution2 {
             int nx = startX + dx[d];
             int ny = startY + dy[d];
 
-            if(!isWithInRange(ny, nx)){
+            if(!isWithInRange2(ny, nx)){
                 d = (d + 1) % 4;
                 nx = startX + dx[d];
                 ny = startY + dy[d];
             }
-//            System.out.println("nx, ny : " + (nx) + " " + ny + " startX " + startX + " startY :" +startY );
+
             if(nx == upX && ny == upY){
+                clearRoomArr[startY][startX] = 0;
                 break;
             }else{
                 clearRoomArr[startY][startX] = clearRoomArr[ny][nx];
@@ -81,6 +91,12 @@ public class Solution2 {
                 startY = ny;
             }
         }
+
+//        for(int i = 0 ; i < clearRoomArr.length; i++){
+//            System.out.println(Arrays.toString(clearRoomArr[i]));
+//        }
+//
+//        System.out.println();
 
         // 시계 방향
         startX = downX;
@@ -91,7 +107,7 @@ public class Solution2 {
             int nx = startX + dx2[d];
             int ny = startY + dy2[d];
 
-            if(!isWithInRange(ny, nx)){
+            if(!isWithInRange3(ny, nx)){
                 d = (d + 1) % 4;
                 nx = startX + dx2[d];
                 ny = startY + dy2[d];
@@ -99,6 +115,7 @@ public class Solution2 {
 
 
             if(nx == downX && ny == downY){
+                clearRoomArr[startY][startX] = 0;
                 break;
             }else{
                 clearRoomArr[startY][startX] = clearRoomArr[ny][nx];
@@ -162,6 +179,8 @@ public class Solution2 {
         for(int i = 0 ; i < T; i++){
             clearRoom();
         }
+
+
 
         reader.close();
     }
