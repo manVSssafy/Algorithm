@@ -58,14 +58,6 @@ public class Solution2 {
 
     private static void airCleaner(int[][] clearRoomArr){
 
-//        System.out.println("upX "+ upX + " " + upY);
-//        System.out.println("downX " + downX + " " + downY);
-//        for(int i = 0 ; i < clearRoomArr.length; i++){
-//            System.out.println(Arrays.toString(clearRoomArr[i]));
-//        }
-//
-//        System.out.println();
-
         // 반시계 방향
         // 시작점 : upX, upY
         int startX = upX;
@@ -86,17 +78,11 @@ public class Solution2 {
                 clearRoomArr[startY][startX] = 0;
                 break;
             }else{
-                clearRoomArr[startY][startX] = clearRoomArr[ny][nx];
+                if(!(startX == upX && startY == upY)) clearRoomArr[startY][startX] = clearRoomArr[ny][nx];
                 startX = nx;
                 startY = ny;
             }
         }
-
-//        for(int i = 0 ; i < clearRoomArr.length; i++){
-//            System.out.println(Arrays.toString(clearRoomArr[i]));
-//        }
-//
-//        System.out.println();
 
         // 시계 방향
         startX = downX;
@@ -118,18 +104,11 @@ public class Solution2 {
                 clearRoomArr[startY][startX] = 0;
                 break;
             }else{
-                clearRoomArr[startY][startX] = clearRoomArr[ny][nx];
+                if(!(startX == downX && startY == downY)) clearRoomArr[startY][startX] = clearRoomArr[ny][nx];
                 startX = nx;
                 startY = ny;
             }
         }
-
-
-        for(int i = 0 ; i < clearRoomArr.length; i++){
-            System.out.println(Arrays.toString(clearRoomArr[i]));
-        }
-
-        System.out.println();
     }
     private static void clearRoom(){
         int[][] clearRoomArr = new int[R][C];
@@ -145,6 +124,11 @@ public class Solution2 {
 
         // (2) 공기청정기
         airCleaner(clearRoomArr);
+
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = clearRoomArr[i].clone();
+        }
+
     }
     public static void main(String[] args) throws IOException{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -180,7 +164,14 @@ public class Solution2 {
             clearRoom();
         }
 
+        int answer = 0;
+        for(int i = 0; i < arr.length; i++){
+            for(int j =0; j < arr[0].length; j++){
+                if(arr[i][j] != 0) answer += arr[i][j];
+            }
+        }
 
+        System.out.println(answer);
 
         reader.close();
     }
