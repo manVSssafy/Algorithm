@@ -8,14 +8,11 @@ public class Solution {
     private static int N;
     private static int curHeight;
     private static int curWeightLoc;
-    private static int beforeHeight, beforeWeightLoc;
     private static int[][] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(reader.readLine());
-//        int[][] arr2 = new int[][]{{5,10},{3,30},{1,50},{4,20},{2,40},{5,60}};
-//        Arrays.sort(arr2);
         arr = new int[N][2];
 
         int maxHeightFirstIndex = 0;
