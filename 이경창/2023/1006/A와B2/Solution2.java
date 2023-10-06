@@ -8,7 +8,7 @@ public class Solution2 {
     private static String S, T;
     private static int answer;
     private static void dfs(StringBuilder builder){
-        
+
         if(builder.length() <= 0) return;
         if(builder.length() == S.length()){
             if(builder.toString().equals(S)) answer = 1;
