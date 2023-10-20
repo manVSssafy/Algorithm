@@ -47,6 +47,10 @@ public class Solution {
         int curX = 1;
         int curY = 0;
         System.out.println("현재 방향 : " + direction);
+        for(int[] inDicArr : diceArr){
+            System.out.println(Arrays.toString(inDicArr));
+        }
+
         for(int i = 0; i < 4; i++){
             int index = i;
             if(direction == 1 && i % 2 == 0) index += 1;
@@ -58,6 +62,10 @@ public class Solution {
 
             curX = curX + dx2[index];
             curY = curY + dy2[index];
+        }
+
+        for(int[] inDicArr : diceArr){
+            System.out.println(Arrays.toString(inDicArr));
         }
     }
 
