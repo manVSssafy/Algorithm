@@ -59,7 +59,6 @@ public class Solution {
 
             diceArr[nextY][nextX] = testCase[curY][curX];
         }
-
     }
 
     private static void rotationSouthOrNorth(int direction){
