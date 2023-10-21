@@ -8,12 +8,10 @@ public class Solution {
     private static class Dice{
         public final int x;
         public final int y;
-//        public final int diceNumber;
 
         Dice(int y, int x){
             this.x = x;
             this.y = y;
-//            this.diceNumber = diceNumber;
         }
     }
 
@@ -26,9 +24,6 @@ public class Solution {
     private static int[] dx = { 1, -1, 0, 0};
     private static int[] dy = { 0, 0, -1, 1};
 
-    // 동서 dxy
-    private static int[] dx2 = {-1, 1, 1, -1};
-    private static int[] dy2 = {1, 1, -1, -1};
     private static boolean isWithInRange(int row, int col){
         if(0 <= row && 0 <= col && row < N && col < M) return true;
         else return false;
@@ -43,29 +38,26 @@ public class Solution {
     }
 
     private static void rotationEastOrWest(int direction){
+
         int[][] testCase = testCopy();
-        int curX = 1;
-        int curY = 0;
-        System.out.println("현재 방향 : " + direction);
-        for(int[] inDicArr : diceArr){
-            System.out.println(Arrays.toString(inDicArr));
+
+        // 동쪽방향
+        int[] indexArr = {3, 4, 5, 10};
+
+        // 동쪽방향 1, 서쪽 방향 2
+        if(direction % 2 == 0){
+            // 서쪽이면 역방향 인덱스 정렬
+            indexArr = Arrays.stream(indexArr).boxed().sorted((a, b) -> b - a).mapToInt(Integer::intValue).toArray();
         }
 
         for(int i = 0; i < 4; i++){
-            int index = i;
-            if(direction == 1 && i % 2 == 0) index += 1;
-            else if(direction == 1) index -= 1;
+            int curY = indexArr[i] / diceArr[0].length;
+            int curX = indexArr[i] % diceArr[0].length;
 
+            int nextY = indexArr[(i + 1) % 4] / diceArr[0].length;
+            int nextX = indexArr[(i + 1) % 4] % diceArr[0].length;
 
-            System.out.println(curY + " " + curX + " index : " + index + " " + (curY + dy2[index]) + " " + (curX + dx2[index]));
-            diceArr[curY + dy2[index]][curX + dx2[index]] = testCase[curY][curX];
-
-            curX = curX + dx2[index];
-            curY = curY + dy2[index];
-        }
-
-        for(int[] inDicArr : diceArr){
-            System.out.println(Arrays.toString(inDicArr));
+            diceArr[nextY][nextX] = testCase[curY][curX];
         }
     }
 
@@ -80,7 +72,7 @@ public class Solution {
 
     private static void printDiceArr(){
         for(int i = 0; i < diceArr.length; i++){
-            System.out.println(Arrays.toString(diceArr[0]));
+            System.out.println(Arrays.toString(diceArr[i]));
         }
         System.out.println();
     }
@@ -97,7 +89,7 @@ public class Solution {
         K = Integer.parseInt(tokenizer.nextToken());
 
         travel = new int[N][M];
-        diceArr = new int[4][4];
+        diceArr = new int[4][3];
         dices = new Dice[6];
 
         dices[0] = new Dice(1, 1);
