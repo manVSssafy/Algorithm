@@ -1,49 +1,28 @@
 package 스티커_모으기;
 
 class Solution {
+    public int solution(int sticker[]) {
+        if(sticker.length == 1) return sticker[0];
 
-    private int[] sticker;
-    private int len;
-    private int answer;
+        int[] dp = new int[sticker.length];
+        int[] dp2 = new int[sticker.length];
 
-    private void dfs(int index, int sum, boolean check){
+        dp[0] = sticker[0];
+        dp[1] = dp[0];
 
-        // 범위를 벗어난 경우
-        if(index >= len){
-            answer = Math.max(answer, sum);
-            // System.out.println("첫 번째 실행");
-            // System.out.println(builder.toString());
-            return;
+        dp2[0] = 0;
+        dp2[1] = sticker[1];
+
+        // 0번 부터 시작한 경우
+        for(int i = 2; i < sticker.length - 1; i++){
+            dp[i] = Math.max(dp[i - 2] + sticker[i], dp[i - 1]);
         }
 
-
-        if(index == len - 1 && check){
-            answer = Math.max(answer, sum);
-            // System.out.println("두 번째 실행");
-            // System.out.println(builder.toString());
-            return;
+        // 1번 부터 시작한 경우
+        for(int i = 2; i < sticker.length; i++){
+            dp2[i] = Math.max(dp2[i - 2] + sticker[i], dp2[i - 1]);
         }
 
-
-        // dfs(index + 2, sum + sticker[index], check, new StringBuilder(builder).append(index).append(" "));
-        // dfs(index + 3, sum + sticker[index], check, new StringBuilder(builder).append(index).append(" "));
-
-        dfs(index + 2, sum + sticker[index], check);
-        dfs(index + 3, sum + sticker[index], check);
-    }
-
-    public int solution(int _sticker[]) {
-        sticker = _sticker;
-        len = sticker.length;
-        // System.out.println("len : " + len);
-        // 홀수인 경우 첫 번째와 마지막은 겹침
-//         dfs(0, 0, true, new StringBuilder());
-//         dfs(1, 0, false, new StringBuilder());
-
-        dfs(0, 0, true);
-        dfs(1, 0, false);
-
-
-        return answer;
+        return Math.max(dp[sticker.length - 2], dp2[sticker.length - 1]);
     }
 }
