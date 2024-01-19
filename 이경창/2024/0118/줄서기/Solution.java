@@ -23,7 +23,6 @@ public class Solution {
     }
 
     private static int N;
-    private static String[][] input;
     private static Node nodes[];
     private static int[][] arrIndex;
 
@@ -52,10 +51,6 @@ public class Solution {
             arrIndex[row][col] = rank++;
         }
 
-//        for(int i = 0; i < N; i++){
-//            System.out.println(Arrays.toString(arrIndex[i]));
-//        }
-
         rank = 0;
         Stack<Integer> store = new Stack<>();
         for(int i = 0; i < N; i++){
@@ -64,7 +59,6 @@ public class Solution {
 
                 // (1) 현재 순위 증가
                 if(curRank == rank){
-//                    System.out.println("순위 증가");
                     rank++;
                 }else if(store.size() > 0 && curRank > store.peek()){
                     // (2) stack이 더 작거나 같으면 꺼냄
@@ -72,18 +66,18 @@ public class Solution {
                         if(curRank < store.peek()){
                             break;
                         }
+                        if(store.peek() != rank) break;
                         store.pop();
                         rank++;
                     }
-                    store.add(curRank);
+
+                    if(rank == curRank) rank++;
+                    else store.add(curRank);
                 }else {
                     store.add(curRank);
                 }
-
-//                System.out.println("현재 랭크 : " + curRank + " stack : " + store.peek() + " size : " + store.size() + " 현재 랭크 : " + rank);
             }
         }
-
 
         while(store.size() > 0){
             if(store.size() >= 2 && store.pop() == store.peek() - 1) rank++;
@@ -92,10 +86,9 @@ public class Solution {
                 rank++;
             }else break;
         }
-//        System.out.println("순위 : " + rank);
+
         if(rank == N * 5) System.out.println("GOOD");
         else System.out.println("BAD");
-
 
         reader.close();
     }
