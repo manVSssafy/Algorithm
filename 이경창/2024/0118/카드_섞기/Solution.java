@@ -9,7 +9,7 @@ public class Solution {
     private static int N;
     private static char[] pArr;
     private static int[] sArr;
-    private static int[] answerArr;
+//    private static int[] answerArr;
     private static String answerStr;
 
     private static int gameStation(){
@@ -19,12 +19,19 @@ public class Solution {
         // game 시작
         while(true){
 
-            StringBuilder curData = new StringBuilder().append(pArr);
+//            StringBuilder curData = new StringBuilder().append(pArr);
 
 //            System.out.println(curData);
 
+            boolean checkBox = true;
             // (1) 게임 결과와 같다면 out
-            if(answerStr.equals(curData.toString())) break;
+            for(int i = 0; i < pArr.length; i++){
+                if(pArr[i] - '0' != (i % 3)){
+                    checkBox = false;
+                    break;
+                }
+            }
+            if(checkBox) break;
 
             time++;
 
@@ -35,7 +42,7 @@ public class Solution {
                 int nextIdx = sArr[i];
                 pArr[nextIdx] = testCase[i];
             }
-            
+
         }
 
         return time;
@@ -48,16 +55,16 @@ public class Solution {
 
 
         pArr = new char[tokenizer.countTokens()];
-        answerArr = new int[tokenizer.countTokens()];
+//        answerArr = new int[tokenizer.countTokens()];
 
         boolean isitStartEnd = false;
 
         for(int i = 0; i < pArr.length; i++){
             pArr[i] = tokenizer.nextToken().charAt(0);
-            answerArr[i] = i % 3;
+//            answerArr[i] = i % 3;
         }
 
-        answerStr = Arrays.stream(answerArr).mapToObj(String::valueOf).collect(Collectors.joining());
+//        answerStr = Arrays.stream(answerArr).mapToObj(String::valueOf).collect(Collectors.joining());
 
         tokenizer = new StringTokenizer(reader.readLine());
         sArr = new int[tokenizer.countTokens()];
@@ -68,7 +75,7 @@ public class Solution {
 
         for(int i = 0; i < sArr.length; i++){
             // 만약 start와 목표 값이 다른데, 위치가 계속 유지되는 경우
-            if(pArr[i] - '0' != answerArr[i] && sArr[i] == i) isitStartEnd = true;
+            if(pArr[i] - '0' != (i % 3) && sArr[i] == i) isitStartEnd = true;
         }
 
         int answer = (isitStartEnd ? -1 : gameStation());
